@@ -13,6 +13,6 @@ message LoginResponse {
     string access_token = 1;
 }
 
-service AuthToken {
+service AuthService {
     rpc Login(LoginRequest) returns (LoginResponse) {}
 }

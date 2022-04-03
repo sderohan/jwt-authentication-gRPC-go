@@ -1,5 +1,5 @@
 gen: 
-	protoc --proto_path=proto proto/*.proto  --go_out=:pb
+	protoc --proto_path=proto proto/*.proto  --go_out=plugins=grpc:pb
 
 client:
 	go run cmd/client/main.go
