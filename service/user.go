@@ -27,6 +27,12 @@ func NewUser(username string, password string, role string) (*User, error) {
 	return user, nil
 }
 
+// IsCorrectPassword checks if the provided password is correct or not
+func (user *User) IsCorrectPassword(password string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(user.HashedPassword), []byte(password))
+	return err == nil
+}
+
 // Clone return a user copy of this user
 func (user *User) Clone() *User {
 	return &User{
