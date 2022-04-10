@@ -34,13 +34,8 @@ func createUser(userStore service.UserStore, username, password, role string) er
 }
 
 func accessibleRoles() map[string][]string {
-	const laptopServicePath = "/techschool.pcbook.LaptopService/"
-
-	return map[string][]string{
-		laptopServicePath + "CreateLaptop": {"admin"},
-		laptopServicePath + "UploadImage":  {"admin"},
-		laptopServicePath + "RateLaptop":   {"admin", "user"},
-	}
+	// populate the below map as per the user roles
+	return map[string][]string{}
 }
 
 func main() {
