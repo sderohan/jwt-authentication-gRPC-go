@@ -14,8 +14,8 @@ type AuthServer struct {
 	userStore  UserStore
 }
 
-func NewAuthServer(jwtManager *JWTManager) pb.AuthServiceServer {
-	return &AuthServer{jwtManager: jwtManager}
+func NewAuthServer(jwtManager *JWTManager, userStore UserStore) pb.AuthServiceServer {
+	return &AuthServer{jwtManager: jwtManager, userStore: userStore}
 }
 
 func (server *AuthServer) Login(ctx context.Context, req *pb.LoginRequest) (*pb.LoginResponse, error) {

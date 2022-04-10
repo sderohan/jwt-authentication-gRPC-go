@@ -46,7 +46,7 @@ func main() {
 	}
 
 	jwtManager := service.NewJWTManager(SECRET, TOKEN_DURATION)
-	authServer := service.NewAuthServer(jwtManager)
+	authServer := service.NewAuthServer(jwtManager, userStore)
 	interceptor := service.NewAuthInterceptor(jwtManager, accessibleRoles())
 	serverOptions := []grpc.ServerOption{
 		grpc.UnaryInterceptor(interceptor.Unary()),
