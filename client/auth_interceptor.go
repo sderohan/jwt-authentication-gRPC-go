@@ -27,6 +27,7 @@ func NewAuthInterceptor(
 		authMethods: authMethods,
 	}
 
+	// initialises the access token for the first time
 	err := interceptor.scheduleRefreshToken(refreshDuration)
 	if err != nil {
 		return nil, err
