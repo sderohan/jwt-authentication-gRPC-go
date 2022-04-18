@@ -1,10 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"time"
 
 	"github.com/sderohan/jwt-authentication-gRPC-go/client"
+	"github.com/sderohan/jwt-authentication-gRPC-go/config"
 	"google.golang.org/grpc"
 )
 
@@ -47,4 +49,7 @@ func main() {
 	}
 
 	_ = cc2
+	config.InitConfig()
+	fmt.Println(config.GetAuthConfig())
+	fmt.Println(config.GetServerConfig())
 }

@@ -25,7 +25,7 @@ func GetDuration(key string) time.Duration {
 }
 
 func SetConfigFileName(filename string) {
-	viper.SetConfigFile(filename)
+	viper.SetConfigName(filename)
 }
 
 func SetConfigFileType(filetype string) {
@@ -34,4 +34,12 @@ func SetConfigFileType(filetype string) {
 
 func SetConfigFileSearchPath(path string) {
 	viper.AddConfigPath(path)
+}
+
+func ReadConfig() {
+	err := viper.ReadInConfig()
+	fmt.Println("ReadConfig")
+	if err != nil {
+		panic(fmt.Errorf("fatal error config file: %w", err))
+	}
 }

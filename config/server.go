@@ -16,6 +16,6 @@ func initServerConfig() {
 	}
 }
 
-func GetServereConfig() *ServerConfig {
+func GetServerConfig() *ServerConfig {
 	return serverConfig
 }
