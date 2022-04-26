@@ -38,7 +38,6 @@ func SetConfigFileSearchPath(path string) {
 
 func ReadConfig() {
 	err := viper.ReadInConfig()
-	fmt.Println("ReadConfig")
 	if err != nil {
 		panic(fmt.Errorf("fatal error config file: %w", err))
 	}
