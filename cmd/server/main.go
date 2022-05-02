@@ -3,18 +3,12 @@ package main
 import (
 	"log"
 	"net"
-	"time"
 
+	"github.com/sderohan/jwt-authentication-gRPC-go/config"
 	"github.com/sderohan/jwt-authentication-gRPC-go/pb"
 	"github.com/sderohan/jwt-authentication-gRPC-go/service"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-)
-
-const (
-	// SECRET should be stored securely
-	SECRET         = "strong-secret-message"
-	TOKEN_DURATION = 15 * time.Minute
 )
 
 func seedUsers(userStore service.UserStore) error {
@@ -44,8 +38,9 @@ func main() {
 	if err != nil {
 		log.Fatal("Cannot seed users ", err)
 	}
-
-	jwtManager := service.NewJWTManager(SECRET, TOKEN_DURATION)
+	config.InitConfig()
+	authConfig := config.GetAuthConfig()
+	jwtManager := service.NewJWTManager(authConfig.SecretKey, authConfig.RefreshDuration)
 	authServer := service.NewAuthServer(jwtManager, userStore)
 	interceptor := service.NewAuthInterceptor(jwtManager, accessibleRoles())
 	serverOptions := []grpc.ServerOption{
@@ -56,7 +51,8 @@ func main() {
 	pb.RegisterAuthServiceServer(grpcServer, authServer)
 	reflection.Register(grpcServer)
 
-	listener, err := net.Listen("tcp", "0.0.0.0:56878")
+	serverConfig := config.GetServerConfig()
+	listener, err := net.Listen(serverConfig.Protocol, serverConfig.Address+":"+serverConfig.Port)
 	if err != nil {
 		log.Fatal("Cannot start tcp server : ", err)
 	}

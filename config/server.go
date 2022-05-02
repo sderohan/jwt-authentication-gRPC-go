@@ -3,16 +3,18 @@ package config
 import "github.com/sderohan/jwt-authentication-gRPC-go/utils"
 
 type ServerConfig struct {
-	Address string
-	Port    string
+	Protocol string
+	Address  string
+	Port     string
 }
 
 var serverConfig *ServerConfig
 
 func initServerConfig() {
 	serverConfig = &ServerConfig{
-		Address: utils.GetString("ADDRESS"),
-		Port:    utils.GetString("PORT"),
+		Protocol: utils.GetString("PROTOCOL"),
+		Address:  utils.GetString("ADDRESS"),
+		Port:     utils.GetString("PORT"),
 	}
 }
 
